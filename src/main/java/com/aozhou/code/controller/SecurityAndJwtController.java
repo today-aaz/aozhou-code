@@ -7,7 +7,7 @@
 //import com.aozhou.code.domain.dao.SysRole;
 //import com.aozhou.code.domain.dao.SysUser;
 //import com.aozhou.code.domain.dto.RegisterDto;
-//import com.aozhou.code.domain.mapper.SysUserMapper;
+//import com.aozhou.code.domain.vo.LoginUserVo;
 //import com.aozhou.code.service.PermissionService;
 //import com.aozhou.code.service.RoleService;
 //import com.aozhou.code.service.UserService;
@@ -30,15 +30,14 @@
 //
 //@Slf4j
 //@RestController
-//@RequestMapping("/shiro")
-//@Api(tags = "shiro")
-//public class ShiroAndJwtController {
+//@RequestMapping("/security")
+//@Api(tags = "security")
+//public class SecurityAndJwtController {
 //
 //
 //    @Resource
 //    private UserService  userService;
-//    @Resource
-//    private SysUserMapper userMapper;
+//
 //    @Resource
 //    private RoleService roleService;
 //    @Resource
@@ -70,18 +69,20 @@
 //    @ApiOperation("获取用户信息")
 //    @GetMapping("/getUserInfo")
 //    public BaseResponse getUserInfo(){
-//        SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
-//        Long userId = user.getId();
-//        SysUser sysUser = new SysUser();
-//        sysUser.setId(userId);
-//        sysUser.setUsername(user.getUsername());
-//        sysUser.setPhone(user.getPhone());
-//        sysUser.setEmail(user.getEmail());
+//        Long userId = SecurityUtils.getUserId();
+////        SysUser user = userService.getUserByName(SecurityUtils.getUsername());
+//        // TODO 后续需要专门的vo类 例如longinUser
+//        SysUser sysUser = SecurityUtils.getLoginUser();
+//        LoginUserVo loginUser = new LoginUserVo();
+//        loginUser.setId(userId);
+//        loginUser.setUsername(sysUser.getUsername());
+//        loginUser.setPhone(sysUser.getPhone());
+//        loginUser.setEmail(sysUser.getEmail());
 //        // 获取用户权限和角色等
 //        List<SysRole> sysRoles = roleService.getRoleByUserId(userId);
 //        List<SysPermission> sysPermissions = permissionService.getPermissionByUserId(userId);
 //        HashMap<String, Object> map = new HashMap<>();
-//        map.put("user", sysUser);
+//        map.put("user", loginUser);
 //        map.put("roles",sysRoles);
 //        map.put("permission", sysPermissions);
 //

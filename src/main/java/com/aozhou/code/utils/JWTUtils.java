@@ -36,8 +36,8 @@ public class JWTUtils {
      */
     public String generateToken(String username) {
         SecretKey signingKey = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
-        Map<String, String> map = new HashMap<>();
-        map.put("username", username);
+        Map<String, String> claims = new HashMap<>();
+        claims.put("username", username);
         //过期时间
         LocalDateTime tokenExpirationTime = LocalDateTime.now().plusMinutes(EXPIRE);
         return Jwts.builder()
@@ -46,10 +46,27 @@ public class JWTUtils {
                 .issuedAt(Timestamp.valueOf(LocalDateTime.now()))
                 .subject(username)
                 .expiration(Timestamp.valueOf(tokenExpirationTime))
-                .claims(map)
+                .claims(claims)
                 .compact();
+
     }
 
+    public boolean isValidateToken(String token){
+        // 解析 JWT，并验证签名和过期时间
+        try {
+            Claims claims = getClaimsByToken(token);
+            return !isTokenExpired(claims.getExpiration());
+        } catch (Exception e) {
+            log.error("JWT validation error: ", e);
+        }
+        return false;
+    }
+
+    /**
+     * 解析JWT令牌并提取其中的声明（Claims
+     * @param token token
+     * @return 返回其中的负载（payload），即Claims对象
+     */
     public Claims getClaimsByToken(String token) {
         SecretKey signingKey = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
         return Jwts.parser()

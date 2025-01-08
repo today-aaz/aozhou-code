@@ -1,4 +1,4 @@
-package com.aozhou.code.domain;
+package com.aozhou.code.domain.dto;
 
 import com.aozhou.code.domain.dao.SysUser;
 import lombok.Data;

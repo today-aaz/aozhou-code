@@ -1,7 +1,7 @@
 package com.aozhou.code.service.impl;
 
 import com.aozhou.code.common.respose.ErrorCode;
-import com.aozhou.code.domain.RegisterDto;
+import com.aozhou.code.domain.dto.RegisterDto;
 import com.aozhou.code.domain.dao.SysUser;
 import com.aozhou.code.domain.mapper.SysUserMapper;
 import com.aozhou.code.exception.BusinessException;
@@ -51,7 +51,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, String> login(String username, String password, HttpServletResponse response) {
         SysUser sysUser = this.getUserByName(username);
-        //
+        if (sysUser == null){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户不存在");
+        }
         String encryptPassword = DigestUtils.md5DigestAsHex((SALT + password).getBytes());
         if (! sysUser.getPassword().equals(encryptPassword)){
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "密码错误");

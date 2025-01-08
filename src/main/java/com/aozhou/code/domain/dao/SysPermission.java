@@ -1,9 +1,15 @@
 package com.aozhou.code.domain.dao;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Author: Aozhou
@@ -16,6 +22,8 @@ import java.io.Serializable;
  * 该类对应于数据库中的sys_permission表，存储系统中的权限信息。
  * </p>
  */
+@Data
+@TableName("sys_permissions")
 public class SysPermission implements Serializable {
 
     /**
@@ -24,7 +32,7 @@ public class SysPermission implements Serializable {
      * 每个权限在系统中都有唯一的标识符。
      * </p>
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -33,7 +41,8 @@ public class SysPermission implements Serializable {
      * 例如：查看用户、编辑角色等。
      * </p>
      */
-    private String permissionName;
+    @TableField("permission")
+    private String permission;
 
     /**
      * 权限编码
@@ -41,14 +50,23 @@ public class SysPermission implements Serializable {
      * 权限的唯一标识符，如 PERMISSION_VIEW_USER。
      * </p>
      */
-    private String permissionCode;
+    @TableField("permission_desc")
+    private String permissionDesc;
 
     /**
-     * 权限对应的URL
-     * <p>
-     * 在Web应用中，权限通常与特定的URL路径相关联。
-     * </p>
+     * 创建时间
      */
-    private String url;
+    @TableField("created_at")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createdAt;
+
+    /**
+     * 更新时间
+     */
+    @TableField("updated_at")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updatedAt;
 
 }

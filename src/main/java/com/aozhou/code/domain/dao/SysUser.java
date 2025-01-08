@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -37,6 +38,7 @@ public class SysUser implements Serializable {
      * 用户登录使用的唯一标识符，用于验证用户身份。
      * </p>
      */
+    @NotNull(message = "用户名不能为空")
     private String username;
 
     /**
@@ -45,6 +47,7 @@ public class SysUser implements Serializable {
      * 存储用户密码的哈希值，防止明文密码泄露。
      * </p>
      */
+    @NotNull(message = "用户密码不能为空")
     private String password;
 
     /**
@@ -69,6 +72,6 @@ public class SysUser implements Serializable {
      * 用户的手机号码，用于身份验证或系统通知。
      * </p>
      */
-    private String phoneNumber;
+    private String phone;
 
 }

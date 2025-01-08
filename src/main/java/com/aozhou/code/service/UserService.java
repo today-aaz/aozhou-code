@@ -1,6 +1,6 @@
 package com.aozhou.code.service;
 
-import com.aozhou.code.domain.RegisterDto;
+import com.aozhou.code.domain.dto.RegisterDto;
 import com.aozhou.code.domain.dao.SysUser;
 
 import javax.servlet.http.HttpServletResponse;

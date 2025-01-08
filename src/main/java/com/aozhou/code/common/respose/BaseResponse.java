@@ -18,7 +18,7 @@ public class BaseResponse <T> implements Serializable {
     private String message; // 响应消息，通常是错误消息或成功消息
 
     // 标准的构造方法，包含 code, data 和 message
-    public BaseResponse(int code, T data, String message) {
+    public BaseResponse(Integer code, T data, String message) {
         this.code = code;
         this.data = data;
         this.message = message != null ? message : "";
@@ -30,7 +30,7 @@ public class BaseResponse <T> implements Serializable {
     }
 
     // 只包含 code 和 data
-    public BaseResponse(int code, T data) {
+    public BaseResponse(Integer code, T data) {
         this(code, data, "");
     }
 
